@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+mkdir -p dist
+rm -rf dist/*
+
+TARGET=web FILENAME=router ENTRY=src/router.js LIBRARY_TARGET=commonjs webpack
+LIBRARY=router TARGET=web FILENAME=router.browser ENTRY=src/router.js LIBRARY_TARGET=var webpack

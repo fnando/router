@@ -1,0 +1,42 @@
+{
+  "name": "@fnando/router",
+  "version": "0.0.0",
+  "description": "Simple router for the browser.",
+  "module": "dist/http.js",
+  "repository": "https://github.com/fnando/router.git",
+  "author": "Nando Vieira <me@fnando.com>",
+  "keywords": [
+    "router",
+    "client",
+    "browser"
+  ],
+  "files": [
+    "src/**/*",
+    "dist/**/*",
+    "README.md",
+    "LICENSE.txt"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "test": "nyc --reporter=html --reporter=text --reporter=lcov mocha --ui tdd --require @babel/register \"test/**/*_test.js\"",
+    "dist": "yarn test && ./bin/dist"
+  },
+  "devDependencies": {
+    "@babel/core": "7.x",
+    "@babel/plugin-proposal-class-properties": "7.x",
+    "@babel/plugin-proposal-function-bind": "7.x",
+    "@babel/plugin-proposal-object-rest-spread": "7.x",
+    "@babel/plugin-transform-runtime": "7.x",
+    "@babel/preset-env": "7.x",
+    "@babel/register": "7.x",
+    "@babel/runtime": "7.x",
+    "babel-loader": "8.x",
+    "jsdom": "11.x",
+    "mocha": "5.x",
+    "nyc": "13.x",
+    "sinon": "7.x",
+    "uglifyjs-webpack-plugin": "2.x",
+    "webpack": "4.x",
+    "webpack-cli": "3.x"
+  }
+}
