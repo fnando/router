@@ -1,7 +1,7 @@
 import assert from "assert";
 import sinon from "sinon";
 
-import { router } from "../../src/router";
+import router from "../../src/router";
 
 suite("router()", () => {
   test("uses window.location", () => {

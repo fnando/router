@@ -1,4 +1,4 @@
-export function router() {
+export default function router() {
   const routes = [];
   const fallbacks = [];
 
@@ -124,5 +124,3 @@ function runner(pathname, routes, fallbacks) {
     fallbacks.forEach(callback => callback());
   }
 }
-
-export default router;
