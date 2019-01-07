@@ -124,3 +124,5 @@ function runner(pathname, routes, fallbacks) {
     fallbacks.forEach(callback => callback());
   }
 }
+
+export default router;
