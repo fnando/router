@@ -1,16 +1,16 @@
-export default function router() {
+export function router() {
   const routes = [];
   const fallbacks = [];
 
-  const self = {
+  const context = {
     on(route, conditions, callback) {
       register(routes, route, conditions, callback);
-      return self;
+      return context;
     },
 
     fallback(callback) {
       fallbacks.push(callback);
-      return self;
+      return context;
     },
 
     run(pathname = window.location.pathname) {
@@ -18,14 +18,15 @@ export default function router() {
     }
   };
 
-  return self;
+  return context;
 }
+
+export default router;
 
 function parse(route) {
   route = route.replace(/\//, "\\/");
 
   const names = [];
-  let match;
 
   route = route.replace(/\((.*?)\)/, (match, value) => {
     if (value.startsWith("/")) {
@@ -35,7 +36,9 @@ function parse(route) {
     return match + "?";
   });
 
-  while (match = route.match(/(:([a-z][a-z0-9_]+))/)) {
+  let match;
+
+  while ((match = route.match(/(:([a-z][a-z0-9_]+))/))) {
     names.push(match[2]);
     route = route.replace(match[1], "([^/]+)");
   }
@@ -98,7 +101,7 @@ function runner(pathname, routes, fallbacks) {
   let passed = false;
   const next = () => (passed = true);
 
-  for (let i = 0; i < routes.length; i++) {
+  for (let i = 0; i < routes.length; i += 1) {
     passed = false;
     const route = routes[i];
     const matches = route.regex.exec(pathname);

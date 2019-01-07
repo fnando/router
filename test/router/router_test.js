@@ -1,9 +1,13 @@
 import assert from "assert";
 import sinon from "sinon";
 
-import router from "../../src/router";
+import drouter, { router } from "../../src/router";
 
 suite("router()", () => {
+  test("exports", () => {
+    assert.equal(router, drouter);
+  });
+
   test("uses window.location", () => {
     global.window = {location: {pathname: "/using/window"}};
 
