@@ -24,12 +24,12 @@ If you're using Yarn (and you should):
 yarn add @fnando/router
 ```
 
-## Importing HTTP
+## Importing Router
 
 If you're using `import`:
 
 ```js
-import router from "@fnando/router";
+import { router } from "@fnando/router";
 
 router()
   .on("/", () => console.log("welcome home!"))
@@ -39,6 +39,12 @@ router()
   .fallback(() => console.log("no routes matched"))
   .run();
 ```
+
+## API
+
+- `router().on(path, conditions, callback)` adds a route that must be valid according to the `conditions`.
+- `router().on(path, callback)` adds a route that must be valid according to the target path.
+- `router().run(pathname = window.location.pathname)` returns the result of the matched url and the params. E.g. `const [result, params] = router().run()`. If you have added multiple fallbacks, then `result` will be an array. If only one fallback is defined, then you get the result instead.
 
 ## Icon
 

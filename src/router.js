@@ -14,7 +14,7 @@ export function router() {
     },
 
     run(pathname = window.location.pathname) {
-      runner(pathname, routes, fallbacks);
+      return runner(pathname, routes, fallbacks);
     }
   };
 
@@ -99,6 +99,8 @@ function validate(params, value, condition) {
 function runner(pathname, routes, fallbacks) {
   let matched = false;
   let passed = false;
+  let result = null;
+  let params = {};
   const next = () => (passed = true);
 
   for (let i = 0; i < routes.length; i += 1) {
@@ -111,11 +113,11 @@ function runner(pathname, routes, fallbacks) {
     }
 
     const values = matches.slice(1);
-    const params = zip(route.names, values);
+    params = zip(route.names, values);
 
     if (validRoute(route, params)) {
       matched = true;
-      route.callback(params, next);
+      result = route.callback(params, next);
 
       if (!passed) {
         break;
@@ -123,7 +125,10 @@ function runner(pathname, routes, fallbacks) {
     }
   }
 
-  if (!matched) {
-    fallbacks.forEach(callback => callback());
+  if (matched) {
+    return [result, params];
+  } else {
+    result = fallbacks.map(callback => callback());
+    return [result.length === 1 ? result[0] : result];
   }
 }

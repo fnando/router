@@ -255,4 +255,31 @@ suite("router()", () => {
 
     assert(!callback.called);
   });
+
+  test("run returns the matched route's results and params", () => {
+    const [result, params] = router()
+                            .on("/:message", () => "result")
+                            .run("/hello");
+
+    assert.equal(result, "result");
+    assert.deepEqual(params, {message: "hello"});
+  });
+
+  test("run returns single fallback results", () => {
+    const [results, params] = router()
+                            .fallback(() => "fallback")
+                            .run("/");
+
+    assert.equal(results, "fallback");
+  });
+
+  test("run returns multiple fallbacks results", () => {
+    const [results, params] = router()
+                            .fallback(() => "fallback 1")
+                            .fallback(() => "fallback 2")
+                            .run("/");
+
+    assert.equal(results[0], "fallback 1");
+    assert.equal(results[1], "fallback 2");
+  });
 });
