@@ -1,6 +1,6 @@
 {
   "name": "@fnando/router",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Simple router for the browser.",
   "module": "dist/router.js",
   "repository": "https://github.com/fnando/router.git",
