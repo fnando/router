@@ -1,10 +1,6 @@
-![@fnando/router: Simple router for the browser.](https://github.com/fnando/router/raw/master/router.png)
+![@fnando/router: Simple router for the browser.](https://github.com/fnando/router/raw/main/router.png)
 
 <p align="center">
-  <a rel="noreferrer noopener" href="https://travis-ci.org/fnando/router"><img src="https://travis-ci.org/fnando/router.svg" alt="Travis-CI" /></a>
-  <a rel="noreferrer noopener" href="https://www.npmjs.com/package/@fnando/router"><img src="https://img.shields.io/npm/v/@fnando/router.svg" alt="NPM Package Version"></a>
-  <a href="https://codeclimate.com/github/fnando/router"><img src="https://codeclimate.com/github/fnando/router/badges/gpa.svg" alt="Code Climate"></a>
-  <a href="https://codeclimate.com/github/fnando/router/coverage"><img src="https://codeclimate.com/github/fnando/router/badges/coverage.svg" alt="Test Coverage"></a>
   <img src="https://img.shields.io/badge/license-MIT-orange.svg" alt="License: MIT">
   <img src="http://img.badgesize.io/fnando/router/master/dist/router.js.svg?label=min+size" alt="Minified size">
   <img src="http://img.badgesize.io/fnando/router/master/dist/router.js.svg?compression=gzip&label=min%2Bgzip+size" alt="Minified+gzip size">
