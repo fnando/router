@@ -1,28 +1,3 @@
-export function router() {
-  const routes = [];
-  const fallbacks = [];
-
-  const context = {
-    on(route, conditions, callback) {
-      register(routes, route, conditions, callback);
-      return context;
-    },
-
-    fallback(callback) {
-      fallbacks.push(callback);
-      return context;
-    },
-
-    run(pathname = window.location.pathname) {
-      return runner(pathname, routes, fallbacks);
-    }
-  };
-
-  return context;
-}
-
-export default router;
-
 function parse(route) {
   route = route.replace(/\//, "\\/");
 
@@ -38,7 +13,7 @@ function parse(route) {
 
   let match;
 
-  while ((match = route.match(/(:([a-z][a-z0-9_]+))/))) {
+  while ((match = route.match(/(:([a-z][A-Za-z0-9_]+))/))) {
     names.push(match[2]);
     route = route.replace(match[1], "([^/]+)");
   }
@@ -60,7 +35,7 @@ function register(routes, route, conditions, callback) {
     regex,
     names,
     conditions,
-    callback
+    callback,
   });
 }
 
@@ -69,16 +44,6 @@ function zip(keys, values) {
     buffer[key] = values[index];
     return buffer;
   }, {});
-}
-
-function validRoute(route, params) {
-  const validSegments = route.names.map(name => {
-    const condition = route.conditions[name];
-    const value = params[name] || "";
-    return validate(params, value, condition);
-  });
-
-  return validSegments.every(valid => valid);
 }
 
 function validate(params, value, condition) {
@@ -94,6 +59,16 @@ function validate(params, value, condition) {
     // `test()` can work as regular function validators.
     return condition.test(value, params);
   }
+}
+
+function validRoute(route, params) {
+  const validSegments = route.names.map((name) => {
+    const condition = route.conditions[name];
+    const value = params[name] || "";
+    return validate(params, value, condition);
+  });
+
+  return validSegments.every((valid) => valid);
 }
 
 function runner(pathname, routes, fallbacks) {
@@ -128,7 +103,30 @@ function runner(pathname, routes, fallbacks) {
   if (matched) {
     return [result, params];
   } else {
-    result = fallbacks.map(callback => callback());
+    result = fallbacks.map((callback) => callback());
     return [result.length === 1 ? result[0] : result];
   }
+}
+
+export function router() {
+  const routes = [];
+  const fallbacks = [];
+
+  const context = {
+    on(route, conditions, callback) {
+      register(routes, route, conditions, callback);
+      return context;
+    },
+
+    fallback(callback) {
+      fallbacks.push(callback);
+      return context;
+    },
+
+    run(pathname = window.location.pathname) {
+      return runner(pathname, routes, fallbacks);
+    },
+  };
+
+  return context;
 }
